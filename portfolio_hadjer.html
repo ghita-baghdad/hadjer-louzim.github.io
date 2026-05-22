@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hadjer LOUZIM — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0f1117;
+      --cream: #f7f4ef;
+      --gold: #c8a96e;
+      --steel: #3a4a5c;
+      --mist: #e8e4dd;
+      --accent: #2d6a8a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(247,244,239,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--mist);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      text-decoration: none; color: var(--steel);
+      font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+    .hero-left {
+      padding: 8rem 4rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .hero-tag {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      line-height: 1.05; font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    .hero-subtitle {
+      font-size: 1.05rem; color: var(--steel); line-height: 1.7;
+      max-width: 460px; margin-bottom: 2.5rem;
+    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-bottom: 2.5rem; }
+    .badge {
+      padding: 0.4rem 1.1rem;
+      border: 1px solid var(--steel);
+      border-radius: 2rem; font-size: 0.75rem;
+      letter-spacing: 0.06em; color: var(--steel);
+      text-transform: uppercase;
+    }
+    .badge.accent { background: var(--accent); color: white; border-color: var(--accent); }
+    .hero-contact { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 0.75rem 2rem;
+      text-decoration: none; font-size: 0.82rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; border-radius: 0.25rem;
+      transition: all 0.25s; cursor: pointer;
+    }
+    .btn-primary { background: var(--ink); color: white; }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-outline { border: 1.5px solid var(--ink); color: var(--ink); background: transparent; }
+    .btn-outline:hover { background: var(--ink); color: white; }
+
+    .hero-right {
+      background: var(--steel);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-visual {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 4rem 3rem;
+      position: relative;
+    }
+    .hero-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(200,169,110,0.25) 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, rgba(45,106,138,0.3) 0%, transparent 60%);
+    }
+    .hero-name-bg {
+      font-family: 'Playfair Display', serif; font-size: 7rem;
+      color: rgba(255,255,255,0.07); white-space: nowrap;
+      font-weight: 700; letter-spacing: 0.05em;
+      pointer-events: none; user-select: none;
+      position: relative; z-index: 1;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      line-height: 1.1; margin-bottom: 3rem;
+    }
+    .divider {
+      width: 3rem; height: 2px;
+      background: var(--gold); margin-bottom: 2rem;
+    }
+
+    /* ── COMPÉTENCES ── */
+    #competences { background: white; }
+    .comp-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5px; background: var(--mist);
+      border: 1.5px solid var(--mist);
+    }
+    .comp-card {
+      background: white; padding: 2.5rem 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .comp-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .comp-icon {
+      font-size: 1.8rem; margin-bottom: 1.2rem;
+    }
+    .comp-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; margin-bottom: 0.8rem;
+    }
+    .comp-card p { font-size: 0.88rem; color: var(--steel); line-height: 1.7; }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+    .pill {
+      font-size: 0.7rem; padding: 0.25rem 0.75rem;
+      background: var(--mist); border-radius: 2rem;
+      color: var(--steel); letter-spacing: 0.04em;
+    }
+    .pill.highlight { background: var(--accent); color: white; }
+
+    /* ── PARCOURS ── */
+    #parcours { background: var(--cream); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px; background: var(--mist);
+    }
+    .t-item {
+      position: relative; margin-bottom: 3rem;
+      padding-left: 2rem;
+    }
+    .t-item::before {
+      content: ''; position: absolute; left: -2.4rem; top: 0.4rem;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--cream);
+    }
+    .t-item.current::before { background: var(--accent); width: 11px; height: 11px; left: -2.55rem; }
+    .t-date {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.4rem;
+    }
+    .t-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; margin-bottom: 0.3rem;
+    }
+    .t-where { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+    .t-desc { font-size: 0.85rem; color: var(--steel); margin-top: 0.6rem; line-height: 1.7; }
+
+    /* ── SCALE ── */
+    .scale-item {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      background: white; padding: 1.4rem 1.6rem;
+      transition: background 0.2s;
+    }
+    .scale-item:hover { background: #faf9f7; }
+    .scale-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0; margin-top: 0.45rem;
+    }
+    .scale-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.3rem; }
+    .scale-desc { font-size: 0.82rem; color: var(--steel); line-height: 1.65; }
+
+    /* ── OUTILS ── */
+    #outils { background: var(--ink); color: white; }
+    #outils h2 { color: white; }
+    #outils .section-label { color: var(--gold); }
+    .tools-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .tool-group h4 {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 1rem;
+    }
+    .tool-list { list-style: none; }
+    .tool-list li {
+      font-size: 0.88rem; color: rgba(255,255,255,0.75);
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .tool-list li::before { content: '—'; color: var(--gold); font-size: 0.7rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--cream); text-align: center; }
+    .contact-wrap { max-width: 560px; margin: 0 auto; }
+    .contact-wrap p { color: var(--steel); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-line {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; color: var(--steel);
+      text-decoration: none; margin: 0 1rem;
+      transition: color 0.2s;
+    }
+    .contact-line:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(255,255,255,0.35);
+      text-align: center; padding: 2rem;
+      font-size: 0.75rem; letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { min-height: 50vh; }
+      .hero-left { padding: 5rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .score-flow { flex-direction: column; }
+      .score-step::after { content: '↓'; right: auto; left: 50%; top: auto; bottom: -1rem; transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Hadjer LOUZIM</div>
+  <div class="nav-links">
+    <a href="#competences">Compétences</a>
+    <a href="#parcours">Parcours</a>
+    <a href="#stage-lamih">Stage LAMIH</a>
+    <a href="#these">Thèse</a>
+    <a href="#scale">Projet SCALE</a>
+    <a href="#outils">Outils</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-tag">Portfolio de compétences · COMPEDOC</p>
+    <h1>Hadjer<br><em>LOUZIM</em></h1>
+    <p class="hero-subtitle">
+      Doctorante en génie industriel à l'Université Polytechnique Hauts-de-France — spécialisée en optimisation, recherche opérationnelle et logistique avancée.
+    </p>
+    <div class="hero-badges">
+      <span class="badge accent">Doctorante · UPHF</span>
+      <span class="badge">Recherche Opérationnelle</span>
+      <span class="badge">Management Logistique</span>
+      <span class="badge">Ingénieure</span>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:lzmhadjer@gmail.com" class="btn btn-primary">Me contacter</a>
+      <a href="#parcours" class="btn btn-outline">Voir le parcours</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-name-bg">LOUZIM</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <p class="section-label fade-up">Recensement des compétences</p>
+  <h2 class="fade-up">Quatre dimensions<br>de savoir-agir</h2>
+  <div class="comp-grid fade-up">
+
+    <div class="comp-card">
+      <div class="comp-icon">📐</div>
+      <h3>Connaissances & Savoirs de référence</h3>
+      <p>Corpus théorique solide en génie industriel, recherche opérationnelle et systèmes logistiques complexes.</p>
+      <div class="skill-pills">
+        <span class="pill highlight">Modélisation mathématique</span>
+        <span class="pill">Recherche opérationnelle</span>
+        <span class="pill">Planification de production</span>
+        <span class="pill">Internet physique</span>
+        <span class="pill">Métaheuristiques</span>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-icon">🛠</div>
+      <h3>Méthodes & Outils</h3>
+      <p>Maîtrise d'outils de simulation, de solveurs d'optimisation et de langages de programmation avancés.</p>
+      <div class="skill-pills">
+        <span class="pill highlight">CPLEX · Gurobi · LINGO</span>
+        <span class="pill">Python · C</span>
+        <span class="pill">ARENA · AnyLogic</span>
+        <span class="pill">Power BI · ODOO</span>
+        <span class="pill">QGIS · TIA PORTAL</span>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-icon">⚙️</div>
+      <h3>Savoir-faire opérationnels</h3>
+      <p>Compétences développées et prouvées à travers la thèse, le stage LAMIH et le projet SCALE.</p>
+      <div class="skill-pills">
+        <span class="pill highlight">Modélisation mono & multi-objectifs</span>
+        <span class="pill highlight">Optimisation dynamique (scheduling/rescheduling)</span>
+        <span class="pill">Métaheuristiques (SA hybride, AMOSA)</span>
+        <span class="pill">Prédiction ETA</span>
+        <span class="pill">Rédaction scientifique</span>
+        <span class="pill">Présentation en congrès</span>
+        <span class="pill">Analyse Pareto</span>
+        <span class="pill">Lean Six Sigma</span>
+        <span class="pill">Gestion de projet</span>
+      </div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-icon">🌐</div>
+      <h3>Savoir-être</h3>
+      <p>Aptitudes développées dans des environnements internationaux et pluridisciplinaires (IEMN, LAMIH, SCALE).</p>
+      <div class="skill-pills">
+        <span class="pill highlight">Autonomie en recherche</span>
+        <span class="pill highlight">Coordination d'équipes multiculturelles</span>
+        <span class="pill">Communication scientifique FR / EN</span>
+        <span class="pill">Interface recherche–industrie</span>
+        <span class="pill">Esprit critique</span>
+        <span class="pill">Adaptabilité</span>
+        <span class="pill">Esprit d'initiative</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Compétences disciplinaires -->
+  <div style="margin-top:1.5px; background:var(--mist);">
+    <div class="comp-card" style="background:var(--ink); color:white;">
+      <div class="comp-icon">🔬</div>
+      <h3 style="color:white;">Compétences disciplinaires — Savoir</h3>
+      <p style="color:rgba(255,255,255,0.65);">Domaines maîtrisés à l'intersection de la recherche et de l'industrie, tous ancrés dans des projets concrets.</p>
+      <div class="skill-pills" style="margin-top:1.2rem;">
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Recherche opérationnelle</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Optimisation combinatoire</span>
+        <span class="pill" style="background:var(--gold);color:var(--ink);">C-ITS & transport intelligent</span>
+        <span class="pill" style="background:var(--gold);color:var(--ink);">Durabilité des chaînes logistiques</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Internet physique & LRP</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Génie industriel</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Management logistique</span>
+        <span class="pill" style="background:rgba(255,255,255,0.1);color:white;">Planification de production</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section id="parcours">
+  <p class="section-label fade-up">Parcours</p>
+  <h2 class="fade-up">Formation & expériences</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;" class="fade-up">
+
+    <div>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:2rem;font-size:1.3rem;">Formation</h3>
+      <div class="timeline">
+
+        <div class="t-item current">
+          <div class="t-date">2024 — présent</div>
+          <div class="t-title">Doctorante · IEMN × LAMIH CNRS</div>
+          <div class="t-where">Université Polytechnique Hauts-de-France</div>
+          <div class="t-desc">Impact des C-ITS sur la durabilité et l'efficacité des chaînes logistiques. Modèle de prédiction ETA + scheduling/rescheduling (Gurobi). Article de conférence rédigé, congrès à venir.</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">Juillet 2024</div>
+          <div class="t-title">Diplôme d'ingénieur & Master</div>
+          <div class="t-where">ESSA Tlemcen, Algérie</div>
+          <div class="t-desc">Génie industriel — Management industriel et logistique. Classée 2<sup>e</sup>/26.</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">2021 — 2024</div>
+          <div class="t-title">Cycle supérieur</div>
+          <div class="t-where">ESSA Tlemcen</div>
+          <div class="t-desc">5 ans de formation en sciences appliquées, dont 2 ans de cycle préparatoire.</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">Juillet 2019</div>
+          <div class="t-title">Baccalauréat — Mention Bien</div>
+          <div class="t-where">Sciences de la nature et de la vie · Algérie</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div>
+      <h3 style="font-family:'Playfair Display',serif;margin-bottom:2rem;font-size:1.3rem;">Expériences & stages</h3>
+      <div class="timeline">
+
+        <div class="t-item current">
+          <div class="t-date">Mai 2024 — Nov. 2024</div>
+          <div class="t-title">Stage de recherche · LAMIH CNRS UMR 8201</div>
+          <div class="t-where">Valenciennes, France</div>
+          <div class="t-desc">LRP dans l'internet physique, modèles mono/multi-objectifs, CPLEX, Gurobi, AMOSA. Article AFROS 2024.</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">Déc. 2023 — Jan. 2024</div>
+          <div class="t-title">Stage industriel · SARL HGP Hasnaoui</div>
+          <div class="t-where">Sidi Bel Abbès, Algérie</div>
+          <div class="t-desc">Fabrication de panneaux de plâtre fibro-renforcés.</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">Mars — Avr. 2023</div>
+          <div class="t-title">Stage · SARL MDM Hasnaoui</div>
+          <div class="t-where">Sidi Bel Abbès, Algérie</div>
+          <div class="t-desc">Création de tableaux de bord maintenance, analyse des pannes (méthode Pareto).</div>
+        </div>
+
+        <div class="t-item">
+          <div class="t-date">Mars — Avr. 2022</div>
+          <div class="t-title">Stage · SARL Promedal</div>
+          <div class="t-where">Tlemcen, Algérie</div>
+          <div class="t-desc">Validation et qualification industrielle de machines, dispositifs médicaux.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STAGE LAMIH -->
+<section id="stage-lamih" style="background: var(--ink); color: white;">
+  <p class="section-label fade-up" style="color:var(--gold);">Stage de recherche</p>
+  <h2 class="fade-up" style="color:white;">Stage LAMIH CNRS UMR 8201 —<br>Valenciennes, France</h2>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;" class="fade-up">
+
+    <div>
+      <p style="font-size:0.95rem; color:rgba(255,255,255,0.7); line-height:1.85; margin-bottom:2rem;">
+        Stage de 6 mois au <strong style="color:white;">LAMIH CNRS UMR 8201</strong> dans le cadre du projet OpenLabs en collaboration avec l'INSA Lyon. J'ai travaillé sur le problème de <strong style="color:white;">Location Routing Problem (LRP)</strong> dans le contexte de l'internet physique, en développant des modèles d'optimisation avancés.
+      </p>
+      <div style="padding: 1.5rem 2rem; border-left: 3px solid var(--gold); background: rgba(255,255,255,0.05); margin-bottom:1.5rem;">
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">Contexte</p>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.65); line-height:1.7;">Mai 2024 – Novembre 2024 · Projet OpenLabs · UPHF × INSA Lyon · Internet physique · Optimisation logistique</p>
+      </div>
+      <div style="padding: 1.5rem 2rem; border-left: 3px solid var(--accent); background: rgba(255,255,255,0.05);">
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Résultats</p>
+        <p style="font-size:0.88rem; color:rgba(255,255,255,0.65); line-height:1.7;">Article accepté · Conférence AFROS 2024 · Poster présenté au séminaire TEC-LOG · UPHF</p>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex; flex-direction:column; gap:1px; background:rgba(255,255,255,0.05);">
+
+        <div class="scale-item" style="background:rgba(255,255,255,0.03);">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title" style="color:white;">Modélisation mono & multi-objectifs</div>
+            <div class="scale-desc" style="color:rgba(255,255,255,0.6);">Développement de modèles mathématiques pour le LRP dans le contexte de l'internet physique.</div>
+          </div>
+        </div>
+
+        <div class="scale-item" style="background:rgba(255,255,255,0.03);">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title" style="color:white;">Algorithmes d'optimisation avancés</div>
+            <div class="scale-desc" style="color:rgba(255,255,255,0.6);">Conception d'un algorithme hybride recuit simulé + ε-greedy (mono-objectif) et AMOSA (multi-objectifs).</div>
+          </div>
+        </div>
+
+        <div class="scale-item" style="background:rgba(255,255,255,0.03);">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title" style="color:white;">Maîtrise de solveurs professionnels</div>
+            <div class="scale-desc" style="color:rgba(255,255,255,0.6);">Utilisation de CPLEX et Gurobi pour la résolution de problèmes d'optimisation combinatoire complexes.</div>
+          </div>
+        </div>
+
+        <div class="scale-item" style="background:rgba(255,255,255,0.03);">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title" style="color:white;">Recherche autonome & publication scientifique</div>
+            <div class="scale-desc" style="color:rgba(255,255,255,0.6);">Conduite d'une démarche complète de la modélisation à la publication, avec présentation en séminaire.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- THÈSE -->
+<section id="these" style="background: var(--cream);">
+  <p class="section-label fade-up">Thèse de doctorat</p>
+  <h2 class="fade-up">Impact des C-ITS sur la durabilité<br>& l'efficacité des chaînes logistiques</h2>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;" class="fade-up">
+
+    <div>
+      <p style="font-size:0.95rem; color:var(--steel); line-height:1.85; margin-bottom:2rem;">
+        Doctorante à l'<strong style="color:var(--ink);">Université Polytechnique Hauts-de-France</strong>, en cotutelle entre le <strong style="color:var(--ink);">LAMIH CNRS</strong> et l'<strong style="color:var(--ink);">IEMN</strong>. Ma thèse porte sur l'intégration des systèmes de transport intelligents coopératifs (C-ITS) dans les chaînes logistiques pour améliorer leur durabilité et leur efficacité opérationnelle.
+      </p>
+      <div style="padding: 1.5rem 2rem; border-left: 3px solid var(--gold); background: var(--mist); margin-bottom:1.5rem;">
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">Contexte</p>
+        <p style="font-size:0.88rem; color:var(--steel); line-height:1.7;">2024 – présent · UPHF · IEMN × LAMIH CNRS · Valenciennes, France</p>
+      </div>
+      <div style="padding: 1.5rem 2rem; border-left: 3px solid var(--accent); background: var(--mist);">
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Résultats & publications</p>
+        <p style="font-size:0.88rem; color:var(--steel); line-height:1.7;">Article de conférence rédigé · Participation à un congrès international à venir</p>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex; flex-direction:column; gap:1px; background:var(--mist);">
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Prédiction d'ETA par modélisation mathématique</div>
+            <div class="scale-desc">Développement d'un modèle de prédiction du temps d'arrivée estimé intégrant les données C-ITS en temps réel.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Optimisation dynamique — Scheduling/Rescheduling</div>
+            <div class="scale-desc">Conception et résolution d'un modèle de scheduling dynamique avec Gurobi, permettant le réajustement en temps réel des plans logistiques.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Recherche pluridisciplinaire (IEMN × LAMIH)</div>
+            <div class="scale-desc">Articulation entre les systèmes embarqués et communicants (IEMN) et l'optimisation logistique (LAMIH) pour une approche globale.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Durabilité des systèmes logistiques</div>
+            <div class="scale-desc">Analyse de l'impact environnemental et économique des C-ITS sur l'efficacité des chaînes d'approvisionnement.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Rédaction & communication scientifique</div>
+            <div class="scale-desc">Rédaction d'un article de conférence et préparation d'une présentation dans un congrès international.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCALE -->
+<section id="scale" style="background: white;">
+  <p class="section-label fade-up">Projet européen</p>
+  <h2 class="fade-up">Projet SCALE —<br>En parallèle de la thèse</h2>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;" class="fade-up">
+
+    <div>
+      <p style="font-size:0.95rem; color:var(--steel); line-height:1.85; margin-bottom:2rem;">
+        En marge de mes travaux de thèse à l'UPHF, je participe au projet européen <strong style="color:var(--ink);">SCALE</strong>, une collaboration internationale impliquant des équipes de recherche et des partenaires industriels issus de plusieurs pays. Cette expérience développe des compétences transversales à fort potentiel de transfert.
+      </p>
+      <div style="padding: 1.5rem 2rem; border-left: 3px solid var(--gold); background: var(--mist);">
+        <p style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.5rem;">Contexte</p>
+        <p style="font-size:0.88rem; color:var(--steel); line-height:1.7;">Projet européen · Collaboration multi-partenaires · Environnement pluriculturel · Interfaces recherche–industrie</p>
+      </div>
+    </div>
+
+    <div>
+      <div style="display:flex; flex-direction:column; gap:1px; background:var(--mist);">
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Coordination & communication multiculturelle</div>
+            <div class="scale-desc">Travail avec des équipes internationales aux cultures et méthodes de travail variées, nécessitant écoute, adaptation et diplomatie.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Interface recherche–industrie</div>
+            <div class="scale-desc">Collaboration directe avec des entreprises partenaires : compréhension des besoins terrain, adaptation du discours scientifique.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Recherche & analyse de données</div>
+            <div class="scale-desc">Collecte, traitement et interprétation de données dans un contexte de projet européen à enjeux multiples.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Compétences multidisciplinaires</div>
+            <div class="scale-desc">Articulation entre informatique et logistique, capacité à mobiliser des savoirs croisés pour résoudre des problèmes complexes.</div>
+          </div>
+        </div>
+
+        <div class="scale-item">
+          <div class="scale-dot"></div>
+          <div>
+            <div class="scale-title">Autonomie & esprit critique</div>
+            <div class="scale-desc">Capacité à poser les bonnes questions, à structurer une réflexion et à avancer de façon autonome dans un environnement incertain.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- OUTILS -->
+<section id="outils">
+  <p class="section-label fade-up">Boîte à outils</p>
+  <h2 class="fade-up">Compétences informatiques<br>& techniques</h2>
+  <div class="tools-grid fade-up">
+    <div class="tool-group">
+      <h4>Solveurs & Optimisation</h4>
+      <ul class="tool-list">
+        <li>CPLEX</li>
+        <li>Gurobi</li>
+        <li>LINGO</li>
+        <li>Algorithme AMOSA</li>
+        <li>Recuit simulé hybride</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Langages de programmation</h4>
+      <ul class="tool-list">
+        <li>Python</li>
+        <li>C</li>
+        <li>Ladder / Grafcet</li>
+        <li>UML</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Simulation & ERP</h4>
+      <ul class="tool-list">
+        <li>ARENA</li>
+        <li>AnyLogic</li>
+        <li>ODOO (ERP)</li>
+        <li>TIA PORTAL</li>
+        <li>QGIS</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Data & Bureautique</h4>
+      <ul class="tool-list">
+        <li>Power BI</li>
+        <li>MS Project</li>
+        <li>Excel avancé</li>
+        <li>PowerPoint</li>
+        <li>Word</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Langues</h4>
+      <ul class="tool-list">
+        <li>Arabe — langue maternelle</li>
+        <li>Français — C1</li>
+        <li>Anglais — B2</li>
+      </ul>
+    </div>
+    <div class="tool-group">
+      <h4>Certifications</h4>
+      <ul class="tool-list">
+        <li>Lean Six Sigma White Belt</li>
+        <li>Webinar — AFROS 2022</li>
+        <li>TRIE — Entrepreneuriat</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap fade-up">
+    <p class="section-label" style="text-align:center;">Contact</p>
+    <h2>Travaillons ensemble</h2>
+    <p>Doctorante à l'UPHF, ouverte aux collaborations de recherche, aux partenariats industriels et aux échanges scientifiques autour de l'optimisation et de la logistique.</p>
+    <div style="margin-bottom:2rem;">
+      <a href="mailto:lzmhadjer@gmail.com" class="contact-line">✉ lzmhadjer@gmail.com</a>
+      <a href="tel:+213657851960" class="contact-line">📞 +213 (0)6 57 85 19 60</a>
+    </div>
+    <a href="mailto:lzmhadjer@gmail.com" class="btn btn-primary">Envoyer un message</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Hadjer LOUZIM · Doctorante UPHF · Portfolio COMPEDOC</p>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
